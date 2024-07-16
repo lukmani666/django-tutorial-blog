@@ -18,7 +18,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.title[:20]
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,7 +27,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.comment
+        return self.comment[:20]
 
 class Reply(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -36,4 +36,4 @@ class Reply(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.reply
+        return self.reply[:20]
