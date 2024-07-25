@@ -1,0 +1,13 @@
+{% extends 'blog/base.html'%}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

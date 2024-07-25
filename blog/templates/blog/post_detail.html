@@ -2,8 +2,33 @@
 {% block content %}
 <h1>Post Detail</h1>
 <h1>Title: {{post.title}}</h1>
-<img src="{{'post.image.url'}}" alt="{{post.title}}">
+<img src="{{post.image.url}}" alt="{{post.title}}" width="200px" height="200px">
 <p><Strong>Content:</Strong> {{post.content}}</p>
 <p><strong>Author:</strong> {{post.author.username}}</p>
 <p><strong>Uploaded:</strong> {{post.created_at}}</p>
+{% if user == post.author%}
+    <a href="{% url 'post_edit' post.pk %}">Edit Post</a>
+    <form action="{% url 'post_delete' post.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit" style="display: inline;">Delete</button>
+    </form>
+{% endif %}
+<h3>Comments</h3>
+<ol>{% for comment in comments %}
+        <li>{{comment.comment}} by {{comment.author.username}}</li>
+        {% if user == comment.author %}
+            <form action="{% url 'comment_delete' comment.pk%}" method="post">
+                {% csrf_token %}
+                <button>Delete comment</button>
+            </form>
+        {% endif %}
+        <ol>
+            {% for reply in comment.replies.all %}
+            <li>{{reply.reply}} by {{reply.author.username}}</li>
+            {% endfor %}
+        </ol>
+        <a href="{% url 'add_reply' comment.pk %}">Reply</a>
+    {% endfor %}
+</ol>
+<a href="{% url 'add_comment' post.pk%}">Add comment</a>
 {% endblock %}
