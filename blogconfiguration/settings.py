@@ -15,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-tutorial-blog-1.onrender.com']
+ALLOWED_HOSTS = ['.onrender.com']
 
 
 # Application definition
